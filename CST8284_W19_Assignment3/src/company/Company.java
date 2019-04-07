@@ -8,8 +8,10 @@
 package company;
 
 import java.io.BufferedReader;
+import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -153,27 +155,19 @@ public class Company {
 		}
 	}//End Method 
 
-	public void loadEmployeeFromFile() {
+	public void loadEmployeeFromFile(){
 		//Loads employees from a file called CurrentEmployees.emp
-		
+		Employee emp;
 		try {	
 			InputStream ofs =  new FileInputStream("CurrentEmployees.emp");
 			ObjectInputStream oos= new ObjectInputStream(ofs);
 			for (int i = 0; i < employees.size(); i++) {
-				employees.add(oos.read());
+				emp = (Employee)(oos.readObject());
+				employees.add(emp);
 			}
-			
-		} catch (IOException e) {
-			System.err.println();
-		}
+		} catch (EOFException x) {
+		} catch (IOException e ) {
+		} catch (ClassNotFoundException c)  {
+		} 
 	}//End Method
-
-
-
-
-
-
-
-
-
 }// end class
