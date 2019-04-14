@@ -1,16 +1,17 @@
 /*Course Name: CST8284
  * Student Name: Brady Hawkins
- * Assignment title: CST8284_W19_Assign02_EmployementManagementSystem
- * Assignment due date: March. 31, 2019
+ * Assignment title: CST8284_W19_Assign03_EmployementManagementSystem
+ * Assignment due date: April. 14, 2019
  *
  *Driver for the application
  */
 package company;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 
-public class CompanyConsole {
+public class CompanyConsole  {
 
 	private static final int ADDEMPLOYEE = 1;
 	private static final int DISPLAYEMPLOYEES = 2;
@@ -44,8 +45,8 @@ public class CompanyConsole {
 			System.out.println(CompanyConsole.DISPLAYSENIOREMPLOYEE+ ".  DISPLAY SENIOR EMPLOYEE");
 			System.out.println(CompanyConsole.FIND_EMPLOYEE+ ".  FIND AN EMPLOYEE");
 			System.out.println(CompanyConsole.DELETE_EMPLOYEE+ ".  DELETE AN EMPLOYEE");
-			System.out.println(CompanyConsole.SAVE_EMPLOYEES_TO_FILE+ ". SAVE EMPLOYEES");
-			System.out.println(CompanyConsole.LOAD_EMPLOYEES_FROM_FILE+ ". LOAD EMPLOYEES ");
+			System.out.println(CompanyConsole.SAVE_EMPLOYEES_TO_FILE+ ".  SAVE EMPLOYEES");
+			System.out.println(CompanyConsole.LOAD_EMPLOYEES_FROM_FILE+ ".  LOAD EMPLOYEES ");
 			System.out.println(CompanyConsole.EXIT + ".  EXIT ");
 			System.out.println("*******************************************************\n");
 
@@ -121,39 +122,61 @@ public class CompanyConsole {
 		}
 	}
 	private void addEmployee() {	
-		if(startUp.isMaximumEmployees()) //Checks to see if new employees are allowed to be added
+		if(startUp.isMaximumEmployees()) { //Checks to see if new employees are allowed to be added
 			System.out.println("Attempt to exceed maximum Employee array size;\n" +
 					"can't add another employee");
-		else{  
+		} else {  
+			int i = 0;
+			boolean infoLoadedCorrectly;
+			String name = null;
+			String employeeNumber = null;
+			String year = null;
+			String month = null;
+			String day = null;
+			String salary = null;
+			String emptype= null;
+			do {
 
-			System.out.println("ENTER NEW EMPLOYEE INFORMATION:\n");
-			System.out.print("NAME: ");
-			String name = in.nextLine();
+				try {
 
-			System.out.print("EMPLOYEE NUMBER: ");
-			int employeeNumber = in.nextInt();
+					System.out.println("ENTER NEW EMPLOYEE INFORMATION:\n");
+					System.out.print("NAME: ");
+					name = in.next();
+					
+					System.out.print("EMPLOYEE NUMBER: ");		
+					employeeNumber = in.next();
+					
+					System.out.println("HIRING DATE");
+					System.out.print("YEAR: ");
+					year = in.next();
 
-			System.out.println("HIRING DATE");
-			System.out.print("YEAR: ");
-			int year = in.nextInt();
+					System.out.print("MONTH: ");
+					month = in.next();
+					
+					System.out.print("DAY: ");
+					day = in.next();
 
-			System.out.print("MONTH: ");
-			int month = in.nextInt();
+					System.out.println("SALARY: ");
+					salary = in.next();
 
-			System.out.print("DAY: ");
-			int day = in.nextInt();
+					System.out.println("Employee Type (Manager = 1, Staff = 2, Temp = 3)");
+					System.out.println();
+					System.out.println("Enter the Employee Type: ");
+					emptype = in.next();
+						
+					Employee employee = startUp.addEmployee(name, Integer.parseInt(employeeNumber), new OurDate(Integer.parseInt(day), Integer.parseInt(month),
+							+ Integer.parseInt(year)), Double.parseDouble(salary), Integer.parseInt(emptype));
+					employee.loadExtraInfo(); //loads extra info depends on which subclass is passed back to this class
+					i++;
+				} catch (InputMismatchException e) {
+					i = 0;
+					System.out.println(e.getMessage() + "; please re-enter the information");
+				} catch (NumberFormatException e) {
+					i = 0;
+					System.out.println(e.getMessage() + "; please re-enter the information");
+				} 
 
-			System.out.println("SALARY: ");
-			double salary = in.nextDouble();
-
-			System.out.println("Employee Type (Manager = 1, Staff = 2, Temp = 3)");
-			System.out.println();
-			System.out.println("Enter the Employee Type: ");
-			int emptype = in.nextInt();
-
-			Employee employee = startUp.addEmployee(name, employeeNumber, new OurDate(day, month, year), salary, emptype);
-			employee.loadExtraInfo(); //loads extra info depends on which subclass is passed back to this class
-
+			} while( i == 0);
 		}//end else
 	}
 }//END CLASS COMPANYCONSOLE
