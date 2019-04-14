@@ -1,31 +1,21 @@
 /*Course Name: CST8284
  * Student Name: Brady Hawkins
- * Assignment title: CST8284_W19_Assign02_EmployementManagementSystem
- * Assignment due date: March. 31, 2019
+ * Assignment title: CST8284_W19_Assign03_EmployementManagementSystem
+ * Assignment due date: April. 14, 2019
  *
  *Represents an abstraction of an Company
  */
 package company;
 
-import java.io.BufferedReader;
 import java.io.EOFException;
-import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
-import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
-import java.io.OutputStream;
-import java.io.Reader;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
-import java.util.Scanner;
 
 public class Company {
 	private ArrayList<Employee> employees = new ArrayList<Employee>();
@@ -145,10 +135,9 @@ public class Company {
 			   FileOutputStream fileOut = new FileOutputStream("CurrentEmployees.emp");
 	            ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
 	         
-			for(int i = 0; i < employees.size(); i++) {
-				objectOut.writeObject(employees.get(i));
-				}
-			
+	            for (Employee emp : employees) {
+	            	objectOut.writeObject(emp);
+	            }	            	            
 			fileOut.close();	
 		} catch (IOException e) {
 			System.err.println();
@@ -159,15 +148,16 @@ public class Company {
 		//Loads employees from a file called CurrentEmployees.emp
 		Employee emp;
 		try {	
+			
 			InputStream ofs =  new FileInputStream("CurrentEmployees.emp");
 			ObjectInputStream oos= new ObjectInputStream(ofs);
-			for (int i = 0; i < employees.size(); i++) {
+			while(true) {
 				emp = (Employee)(oos.readObject());
 				employees.add(emp);
-			}
+			}				
 		} catch (EOFException x) {
 		} catch (IOException e ) {
 		} catch (ClassNotFoundException c)  {
 		} 
-	}//End Method
+	}//End Method	
 }// end class
