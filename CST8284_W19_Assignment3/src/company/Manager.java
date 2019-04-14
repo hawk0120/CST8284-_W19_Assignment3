@@ -1,7 +1,9 @@
-/*Course Name: CST8284
- * Student Name: Brady Hawkins
- * Assignment title: CST8284_W19_Assign02_EmployementManagementSystem
- * Assignment due date: March. 31, 2019
+/**Manager.java
+ * @author BradyHawkins
+ * @version 1.0
+ * Course Name: CST8284
+ * Assignment title: CST8284_W19_Assign03_EmployementManagementSystem
+ * Assignment due date: April. 14, 2019
  *
  *Represents an abstraction of an Manager
  */
@@ -10,13 +12,27 @@ package company;
 import java.util.Scanner;
 
 public class Manager extends Employee {
+	/**
+	 * Field created to hold a string that represents the title of the Employee
+	 */
 	private String title;
-	// Constructor
+	/**
+	 * Constructor
+	 * Instantiates it with initial values
+	 */
 	public Manager() {
 		this("Unknown", 2, new OurDate(30, 03, 2019), 6000.0, "Mid Level Manager");
 	} 	
 	
-	//Overloaded constructor, supers up to Employee to get passed params
+	/**
+	 * Base Construct
+	 * Supers up to Employee to get passed params
+	 * @param name
+	 * @param employeeNumber
+	 * @param startDate
+	 * @param salary
+	 * @param title
+	 */
 	public Manager(String name, int employeeNumber, OurDate startDate, double salary, String title) {
 		super( name,
 			employeeNumber,
@@ -25,16 +41,25 @@ public class Manager extends Employee {
 		this.setTitle(title);
 	} 
 	
-	//returns a String that represnts the title of the manager
+	/**
+	 * returns a String that represents the title of the manager
+	 * @return String
+	 */
 	public String getTitle() {
 		return title;
 	}
-	//passes the variable title to constructor of the class
+	/**
+	 * Passes the variable title to constructor of the class
+	 * @param title
+	 * @return void
+	 */
 	public void setTitle(String title) {
 		this.title = title;
-		
 	}
-	//overridden from parent class
+	/**
+	 * Overridden from parent class
+	 * Loads a new scanner obj passes the input to title
+	 */
 	@Override
 	public void loadExtraInfo() {
 		Scanner sc = new Scanner(System.in); //creates a new scanner obj 
@@ -42,12 +67,18 @@ public class Manager extends Employee {
 			title = sc.nextLine(); //sets title to the input of the user
 		this.setTitle(title); //passes the variable title to the setter of class
 	}
-	//returns a nicely formatted set of Strings to pass to parent classes
+	/**
+	 * returns a formatted set of Strings to pass to parent classes
+	 * @return String
+	 */
 	@Override
 	public String toString() {
 		return super.toString() + "\t " + title;
 	}
-	// checks to see if an obj is equal to another obj of this class
+	/**
+	 * Checks to see if an obj is equal to another obj of this class
+	 * @retruns boolean
+	 */
 	@Override	
 	public boolean equals(Object obj) {
 		if ((obj == null) || (this.getClass() != obj.getClass())) return false;
