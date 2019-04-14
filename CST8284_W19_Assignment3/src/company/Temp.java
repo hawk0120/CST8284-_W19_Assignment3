@@ -1,22 +1,37 @@
-/*Course Name: CST8284
- * Student Name: Brady Hawkins
- * Assignment title: CST8284_W19_Assign02_EmployementManagementSystem
- * Assignment due date: March. 31, 2019
- * 
- * 
- * Represents a Temporary worker
+/**Temp.java
+ * @author BradyHawkins
+ * @version 1.0
+ * Course Name: CST8284
+ * Assignment title: CST8284_W19_Assign03_EmployementManagementSystem
+ * Assignment due date: April. 14, 2019
+ *
+ *Represents an abstraction of an Temporay Employee
  */
 package company;
 
 import java.util.Scanner;
 
 public class Temp extends Employee {
+	/**
+	 * Field created to hold an OurDate obj that represents the last day of the contract of the Employee
+	 */
 	private OurDate endContractDate;
-	//constructor
+	/**
+	 * Constructor
+	 * Instantiates it with initial values
+	 */
 	public Temp() {
 		this("Unkown", 1, new OurDate(30, 03, 2019), 5000.0, new OurDate(31, 03, 2019));
 	}
-	//Overloaded constructer, supers up to parent to get params
+	/**
+	 * Base Constructor
+	 * Supers up to get the parameters instantiated in Employee
+	 * @param name
+	 * @param employeeNumber
+	 * @param startDate
+	 * @param salary
+	 * @param endConstractDate
+	 */
 	public Temp(String name, int employeeNumber, OurDate startDate, double salary, OurDate endConstractDate) {
 		super( name,
 				employeeNumber,
@@ -25,15 +40,26 @@ public class Temp extends Employee {
 		this.setEndContractDate(endConstractDate);
 	}
 	
-	//returns an OurDate that represents the last date of a contract
+	/**
+	 * returns an OurDate that represents the last date of a contract
+	 * @return OurDate
+	 */
 	public OurDate getEndContractDate() {
 		return endContractDate;
 	}
-	//passes the endContractDate variable to the constructor
+	/**
+	 * passes the endContractDate variable to the constructor
+	 * @param endContractDate
+	 * @return void
+	 */
 	public void setEndContractDate(OurDate endContractDate) {
 		this.endContractDate = endContractDate;
 	}
-	//Overridden from parent class
+	/**
+	 * Overridden from parent class
+	 * This method askes for the end of the date of the contracct
+	 * @return void
+	 */
 	@Override
 	public void loadExtraInfo() {
 		Scanner sc = new Scanner(System.in); //Creates a new scanner obj
@@ -48,12 +74,17 @@ public class Temp extends Employee {
 			OurDate date = new OurDate(day, month, year);			
 		this.setEndContractDate(date); //passes the OurDate obj to the setter
 	}
-	//returns a nicely formatted set of Strings to pass to parent classes
+	/**
+	 * returns a formatted set of Strings to pass to parent classes
+	 * @return String
+	 */
 	@Override
 	public String toString() {
 		return super.toString() + "\t " + endContractDate;
 	}
-	//returns a nicely formatted set of Strings to pass to parent classes
+	/**
+	 * returns a nicely formatted set of Strings to pass to parent classes
+	 */
 	@Override	
 	public boolean equals(Object obj) {
 		if ((obj == null) || (this.getClass() != obj.getClass())) return false;
